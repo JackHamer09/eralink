@@ -53,7 +53,7 @@ const chains: Chain[] = [
     rpcUrl: "http://localhost:8011",
     hidden: true,
   }, */
-  {
+  /* {
     id: 270,
     key: "local-dockerized",
     name: "Dockerized Node",
@@ -62,7 +62,7 @@ const chains: Chain[] = [
       textStorageAddress: "0x22F4D93be0E8C0C081e74c0d5e697B64eEA007FF",
       paymasterAddress: "0xe4C7fBB0a626ed208021ccabA6Be1566905E2dFc",
     },
-  },
+  }, */
 ];
 
 export default chains;
