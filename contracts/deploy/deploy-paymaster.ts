@@ -1,7 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { deployContract } from "./utils";
 
-const TEXT_STORAGE_PROXY_ADDRESS = "0xe2cd0C657a4f95fB81a79562DB19D460AA95b1d5";
+const TEXT_STORAGE_PROXY_ADDRESS = "";
 
 // An example of a deploy script that will deploy and call a simple contract.
 export default async function (hre: HardhatRuntimeEnvironment) {
