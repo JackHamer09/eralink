@@ -35,7 +35,7 @@ The project is organized into two main directories:
   1. Set the `defaultNetwork` in `hardhat.config.ts` to choose the deployment network.
   2. Rename `.env.example` to `.env` and enter the private key for the wallet that will handle contract deployment fees. Ensure this account has sufficient ETH.
   3. Deploy Text Storage and Upgradable Proxy: `yarn deploy:text-storage`
-  4. For Paymaster deployment, update `TEXT_STORAGE_PROXY_ADDRESS` in `/deploy/deploy-paymaster.ts`, then run `yarn deploy:paymaster`.
+  4. For Paymaster deployment, update `TEXT_STORAGE_PROXY_ADDRESS` in `/deploy/deploy-paymaster.ts`, then run `yarn deploy:paymaster`. Don't forget to send some ETH to the Paymaster so it can pay for transactions.
 
 ### Frontend:
 1. Rename `.env.example` to `.env` and fill in `WALLET_CONNECT_PROJECT_ID` (create one [here](https://cloud.walletconnect.com/)) and `WEB3_STORAGE_KEY` (generate one [here](https://web3.storage/tokens/)).
