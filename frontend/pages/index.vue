@@ -21,21 +21,6 @@
 </template>
 
 <script lang="ts" setup>
-useHead({
-  title: "EraLink - shorten and immortalize your links, text, and files with zkSync",
-  meta: [
-    {
-      name: "description",
-      content: "Shorten and immortalize your links, text, and files anonymously on-chain with zkSync Era",
-    },
-    { name: "og:title", content: "EraLink - shorten and immortalize your links, text, and files with zkSync" },
-    {
-      name: "og:description",
-      content: "Shorten and immortalize your links, text, and files anonymously on-chain with zkSync Era",
-    },
-  ],
-});
-
 const { addLink } = useLinksStore();
 const { inProgress, error, input, fileInput } = storeToRefs(useLinksStore());
 

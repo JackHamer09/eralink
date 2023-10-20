@@ -1,5 +1,45 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: "en",
+      },
+      title: "EraLink - shorten and immortalize your links, text, and files with zkSync",
+      meta: [
+        {
+          name: "description",
+          content: "Shorten and immortalize your links, text, and files anonymously on-chain with zkSync Era",
+        },
+        { name: "og:title", content: "EraLink - shorten and immortalize your links, text, and files with zkSync" },
+        {
+          name: "og:description",
+          content: "Shorten and immortalize your links, text, and files anonymously on-chain with zkSync Era",
+        },
+        {
+          property: "og:image",
+          content: "https://eralink.netlify.app/preview.jpg",
+        },
+        {
+          property: "og:image:alt",
+          content: "EraLink - shorten and immortalize your links, text, and files with zkSync",
+        },
+        {
+          property: "og:image:type",
+          content: "image/jpeg",
+        },
+        {
+          property: "og:image:width",
+          content: "1200",
+        },
+        {
+          property: "og:image:height",
+          content: "630",
+        },
+      ],
+    },
+  },
+
   ssr: false,
   devtools: { enabled: true },
   modules: [

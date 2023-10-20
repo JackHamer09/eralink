@@ -26,8 +26,7 @@
     "test": "NODE_ENV=test hardhat test --network zkSyncTestnet",
     "deploy:text-storage": "yarn hardhat deploy-zksync --script deploy-text-storage.ts",
     "deploy:paymaster": "yarn hardhat deploy-zksync --script paymaster.ts",
-    "deploy:upgrade-test-storage": "yarn hardhat deploy-zksync --script upgrade-test-storage.ts",
-    "greet": "yarn hardhat deploy-zksync --script use-greeter.ts"
+    "deploy:upgrade-test-storage": "yarn hardhat deploy-zksync --script upgrade-test-storage.ts"
   },
   "dependencies": {
     "@openzeppelin/contracts-upgradeable": "^4.9.3"
