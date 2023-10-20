@@ -47,6 +47,7 @@ export default defineNuxtConfig({
     "@nuxtjs/eslint-module", // https://nuxt.com/modules/eslint
     "@nuxtjs/tailwindcss", // https://nuxt.com/modules/tailwindcss
     "@nuxtjs/google-fonts", // https://google-fonts.nuxtjs.org
+    "nuxt-gtag", // https://nuxt.com/modules/gtag
     "@kevinmarrec/nuxt-pwa",
   ],
 

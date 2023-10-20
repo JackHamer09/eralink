@@ -77,9 +77,10 @@ export const useOnboardStore = defineStore("onboard", () => {
       connectorName.value = wagmiConfig.connector?.name;
     } catch (err) {
       disconnect();
-      const error = formatError(err as Error);
-      if (error) {
-        connectingWalletError.value = error.message;
+      if (err instanceof Error) {
+        connectingWalletError.value = err.message;
+      } else {
+        connectingWalletError.value = err?.toString();
       }
     }
   });

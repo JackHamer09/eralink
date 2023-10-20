@@ -42,31 +42,3 @@ export function getTransactionErrorMessage(error: any) {
     }
   }
 }
-
-export function formatError(error?: Error) {
-  if (!error?.message) {
-    if (typeof error === "object" && (error as any).code === 4001) {
-      return undefined;
-    }
-    error = Object.assign(new Error("Unknown error"), error);
-  }
-  const message = error?.message;
-  if (typeof message === "string") {
-    if (
-      message.includes("User denied") ||
-      message.includes("User rejected") ||
-      message.includes("Rejected by user") ||
-      // eslint-disable-next-line prettier/prettier
-      message.includes("\"Request rejected\"") ||
-      message.includes("user rejected transaction") ||
-      message.includes("not configured for connector")
-    ) {
-      return undefined;
-    } else if (message.toLowerCase().includes("fee is to low")) {
-      return new Error("Transaction fee was to low. Try again.");
-    } else if (message === "Network Error" || message === "Failed to fetch ()" || message.includes("noNetwork")) {
-      return new Error("Network error. Check your internet connection and try again.");
-    }
-  }
-  return error;
-}

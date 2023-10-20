@@ -110,6 +110,7 @@ watch(
   slug,
   () => {
     fetchBySlug();
+    trackEvent(useGtag().gtag, "Link visited");
   },
   { immediate: true }
 );

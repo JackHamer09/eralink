@@ -3,7 +3,7 @@ import chains from "@/data/chains";
 
 export const useNetworkStore = defineStore("network", () => {
   const defaultChain = chains[0];
-  const routeNetwork = useRouteQuery("network", undefined, { mode: "replace" });
+  const routeNetwork = useRouteQuery<string | null>("network", null, { mode: "replace" });
   const selectedChain = computed(() => {
     if (routeNetwork.value) {
       return chains.find((e) => e.key === routeNetwork.value) ?? defaultChain;
@@ -18,6 +18,10 @@ export const useNetworkStore = defineStore("network", () => {
       routeNetwork.value = chain;
     }
   };
+
+  watch(selectedChain, (network) => {
+    trackEvent(useGtag().gtag, "Network change", { network: network.name });
+  });
 
   return {
     selectedChain,

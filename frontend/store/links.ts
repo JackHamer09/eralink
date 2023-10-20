@@ -85,6 +85,8 @@ export const useLinksStore = defineStore("links", () => {
           transactionHash,
         },
       ];
+
+      trackEvent(useGtag().gtag, "Link created", { type: textToType(textToStore) });
     },
     { cache: false }
   );

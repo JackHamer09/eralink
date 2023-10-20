@@ -39,6 +39,7 @@
     "@web3modal/wagmi": "^3.1.0",
     "ethers": "^5.7.2",
     "multiformats": "^12.1.2",
+    "nuxt-gtag": "^1.1.1",
     "pinia": "^2.1.6",
     "random-word-slugs": "^0.1.7",
     "viem": "^1.16.4",
