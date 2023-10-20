@@ -1,6 +1,10 @@
 <template>
   <div class="link-layout">
-    <NuxtLink :to="{ name: 'index' }" aria-label="Home" class="flex w-full items-center justify-center">
+    <NuxtLink
+      :to="{ name: 'index', query: $route.query }"
+      aria-label="Home"
+      class="flex w-full items-center justify-center"
+    >
       <img class="logo-image" src="/logo.svg" alt="EraLink" />
     </NuxtLink>
     <NuxtPage />

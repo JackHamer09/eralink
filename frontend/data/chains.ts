@@ -27,42 +27,39 @@ const chains: Chain[] = [
     rpcUrl: "https://testnet.era.zksync.dev",
     blockExplorerUrl: "https://goerli.explorer.zksync.io",
     contracts: {
-      textStorageAddress: "0xe2cd0C657a4f95fB81a79562DB19D460AA95b1d5",
-      paymasterAddress: "0x72Cb42552Bc9b3B4809E394fc441A5289A5f6a9F",
+      textStorageAddress: "0x69Ae307d70256E9b101FDafEb830AF8A8327bB0c",
+      paymasterAddress: "0x6C68a2501Bd2818916337dB3D66027fe38657EEE",
     },
   },
   /* {
-    id: 270,
-    key: "stage",
-    name: "zkSync Era Stage",
-    rpcUrl: "https://z2-dev-api.zksync.dev",
-    blockExplorerUrl: "https://goerli-beta.staging-scan-v2.zksync.dev",
-    hidden: true,
-  },
-  {
     id: 300,
     key: "boojnet",
     name: "zkSync Era Boojnet",
     rpcUrl: "https://sepolia.era.zksync.dev",
     hidden: true,
-  },
+  }, */
   {
     id: 260,
     key: "local-memory",
     name: "In-memory Node",
     rpcUrl: "http://localhost:8011",
     hidden: true,
-  }, */
-  /* {
+    contracts: {
+      textStorageAddress: "0x4B5DF730c2e6b28E17013A1485E5d9BC41Efe021",
+      paymasterAddress: "0x26b368C3Ed16313eBd6660b72d8e4439a697Cb0B",
+    },
+  },
+  {
     id: 270,
     key: "local-dockerized",
     name: "Dockerized Node",
     rpcUrl: "http://localhost:3050",
+    hidden: true,
     contracts: {
-      textStorageAddress: "0x22F4D93be0E8C0C081e74c0d5e697B64eEA007FF",
-      paymasterAddress: "0xe4C7fBB0a626ed208021ccabA6Be1566905E2dFc",
+      textStorageAddress: "0xD49036D56f474152891D9eced770D6b90B2cEAE9",
+      paymasterAddress: "0xb1Ca5B44ef3627A3E5Ed7a6EE877D9D997A7c7ED",
     },
-  }, */
+  },
 ];
 
 export default chains;

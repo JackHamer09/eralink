@@ -1,3 +1,4 @@
+import { CID } from "multiformats/cid";
 import type { LinkType } from "@/store/links";
 
 export function shortenAddress(address: string, chars = 3): string {
@@ -18,12 +19,28 @@ export function textToType(text: string): LinkType {
     // ignore
   }
 
-  const ipfsPattern = /^Qm[a-zA-Z0-9]{44,}$/;
-  if (ipfsPattern.test(`Qm${text}`) || ipfsPattern.test(text)) {
+  try {
+    // Will throw an error if not a valid CID
+    CID.parse(text);
     return "file";
+  } catch {
+    // ignore
   }
 
   return "text";
+}
+
+export function getTransactionErrorMessage(error: any) {
+  if (error?.body) {
+    try {
+      const errorBody = JSON.parse(error.body);
+      if (errorBody?.error?.message) {
+        return errorBody.error.message;
+      }
+    } catch {
+      // ignore
+    }
+  }
 }
 
 export function formatError(error?: Error) {

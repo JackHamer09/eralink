@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <LinkErrorModal v-model:error="error" />
     <Hero id="hero" v-model="input" :disabled="inProgress" @submit="createLink" @upload="fileUpload" />
     <div id="links-history">
       <div class="py-10">
@@ -21,7 +22,7 @@
 
 <script lang="ts" setup>
 const { addLink } = useLinksStore();
-const { inProgress, input, fileInput } = storeToRefs(useLinksStore());
+const { inProgress, error, input, fileInput } = storeToRefs(useLinksStore());
 
 const fileUpload = (file: File) => {
   fileInput.value = file;

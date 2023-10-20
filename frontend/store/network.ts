@@ -1,15 +1,22 @@
-import { useStorage } from "@vueuse/core";
+import { useRouteQuery } from "@vueuse/router";
 import chains from "@/data/chains";
 
 export const useNetworkStore = defineStore("network", () => {
   const defaultChain = chains[0];
-  const selectedStorageChain = useStorage<string>("selectedChain", defaultChain.key);
+  const routeNetwork = useRouteQuery("network", undefined, { mode: "replace" });
   const selectedChain = computed(() => {
-    return chains.find((e) => e.key === selectedStorageChain.value) ?? defaultChain;
+    if (routeNetwork.value) {
+      return chains.find((e) => e.key === routeNetwork.value) ?? defaultChain;
+    }
+    return defaultChain;
   });
 
   const changeChain = (chain: string) => {
-    selectedStorageChain.value = chain;
+    if (chain === defaultChain.key) {
+      routeNetwork.value = null;
+    } else {
+      routeNetwork.value = chain;
+    }
   };
 
   return {

@@ -20,8 +20,6 @@ contract TextStorage is Initializable {
 
   function storeText(string memory _text, string memory _slug) public {
     require(bytes(_text).length >= 3, "Text is too short");
-    require(bytes(_text).length <= 1500, "Text exceeds the 1500 bytes limit");
-    require(bytes(_slug).length <= 50, "Slug exceeds the 50 bytes limit");
     
     require(bytes(textLookupTable[_slug].text).length == 0, "Slug already exists");
     
@@ -33,6 +31,9 @@ contract TextStorage is Initializable {
 
   function getEntry(string memory _slug) public view returns (address, uint256, string memory) {
     return (textLookupTable[_slug].creator, textLookupTable[_slug].timestamp, textLookupTable[_slug].text);
-}
+  }
 
+  function getStoredTexts(address _address) public view returns (string[] memory) {
+    return storedTexts[_address];
+  }
 }

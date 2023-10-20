@@ -12,7 +12,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 /// @author Matter Labs
 /// @notice This contract does not include any validations other than using the paymaster general flow.
 contract GeneralPaymaster is IPaymaster, Ownable {
-	address public TextStorageAddress;
+	address public textStorageAddress;
 	bytes4 public storeTextSelector = bytes4(keccak256("storeText(string,string)"));
 
 	modifier onlyBootloader() {
@@ -25,11 +25,11 @@ contract GeneralPaymaster is IPaymaster, Ownable {
 	}
 
 	constructor(address _textStorageAddress) {
-		TextStorageAddress = _textStorageAddress;
+		textStorageAddress = _textStorageAddress;
 	}
 
 	function setTextStorageAddress(address _textStorageAddress) public onlyOwner {
-		TextStorageAddress = _textStorageAddress;
+		textStorageAddress = _textStorageAddress;
 	}
 
 	function validateAndPayForPaymasterTransaction(
@@ -50,7 +50,7 @@ contract GeneralPaymaster is IPaymaster, Ownable {
 		);
 
 		require(
-			_transaction.to == uint256(uint160(TextStorageAddress)),
+			_transaction.to == uint256(uint160(textStorageAddress)),
 			"Transaction target address is not allowed"
 		);
 		require(
@@ -64,11 +64,11 @@ contract GeneralPaymaster is IPaymaster, Ownable {
 		);
 
 		// Decode the transaction data to get _text and _slug
-		// (string memory _slug, string memory _text) = abi.decode(_transaction.data[4:], (string, string));
+		(string memory _text, string memory _slug) = abi.decode(_transaction.data[4:], (string, string));
 
 		// Check the lengths of _text and _slug to prevent abuse of the storage
-		// require(bytes(_text).length <= 1500, "Text exceeds the 1500 bytes limit");
-		// require(bytes(_slug).length <= 50, "Slug exceeds the 50 bytes limit");
+		require(bytes(_text).length <= 1000, "Text exceeds the 1000 bytes limit");
+		require(bytes(_slug).length <= 50, "Slug exceeds the 50 bytes limit");
 
 		bytes4 paymasterInputSelector = bytes4(
 			_transaction.paymasterInput[0:4]

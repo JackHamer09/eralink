@@ -1,4 +1,4 @@
-import { Wallet } from "zksync-web3";
+import { Provider, Wallet } from "zksync-web3";
 import * as ethers from "ethers";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { Deployer } from "@matterlabs/hardhat-zksync-deploy";
@@ -7,21 +7,23 @@ import dotenv from "dotenv";
 // load env file
 dotenv.config();
 
-export const getWallet = () => {
+export const getWallet = (hre: HardhatRuntimeEnvironment) => {
   // load wallet private key from env file
   const PRIVATE_KEY = process.env.WALLET_PRIVATE_KEY || "";
   
-  if (!PRIVATE_KEY)
-    throw "⛔️ Private key not detected! Add it to the .env file!";
+  if (!PRIVATE_KEY) throw "⛔️ Private key not detected! Add it to the .env file!";
 
+  // @ts-ignore
+  const provider = new Provider(hre.network.config.url);
+  
   // Initialize the wallet.
-  const wallet = new Wallet(PRIVATE_KEY);
+  const wallet = new Wallet(PRIVATE_KEY, provider);
 
   return wallet;
 }
 
 export const deployContract = async (hre: HardhatRuntimeEnvironment, contractArtifactName: string, args?: any[]) => {
-  const wallet = getWallet();
+  const wallet = getWallet(hre);
   
   console.log(`\nRunning deployment script for ${contractArtifactName}...`);
   // Create deployer object and load the artifact of the contract you want to deploy.
@@ -45,6 +47,7 @@ export const deployContract = async (hre: HardhatRuntimeEnvironment, contractArt
   // Show the contract info.
   console.log(`${artifact.contractName} was deployed to ${textStorageContract.address}`);
 
+  // @ts-ignore
   if (hre.network.config.verifyURL) {
     console.log("Starting contract verification process...");
     // Verify contract programmatically

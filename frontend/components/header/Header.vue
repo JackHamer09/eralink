@@ -1,13 +1,13 @@
 <template>
   <header id="header" class="header-container">
     <div class="header-grid">
-      <NuxtLink :to="{ name: 'index' }" aria-label="Home" class="flex items-center">
+      <NuxtLink :to="{ name: 'index', query: $route.query }" aria-label="Home" class="flex items-center">
         <img class="logo-image" src="/logo.svg" alt="EraLink" />
       </NuxtLink>
 
       <div class="right-section">
         <HeaderNetworkSwitcher />
-        <HeaderUserButton />
+        <!-- <HeaderUserButton /> -->
       </div>
     </div>
   </header>

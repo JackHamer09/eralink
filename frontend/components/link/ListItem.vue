@@ -26,8 +26,8 @@
     </div>
     <div class="group relative w-full">
       <NuxtLink
-        :to="{ path: `/${slug}` }"
-        class="group-hover:text-gray- mt-3 block text-lg font-semibold leading-6 text-gray-900"
+        :to="link"
+        class="mt-3 block break-all text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
       >
         <span v-if="clamp" class="absolute inset-0" />
         <CommonContentLoader v-if="!type" :length="slug.length * 2" class="py-0.5" />
@@ -35,7 +35,7 @@
       </NuxtLink>
       <p
         v-if="type === 'text' || type === 'url' || !type"
-        class="mt-5 overflow-hidden text-sm leading-6 text-gray-600"
+        class="mt-5 overflow-hidden break-all text-sm leading-6 text-gray-600"
         :class="{ 'line-clamp-3': clamp }"
       >
         <span v-if="text">{{ text }}</span>
@@ -115,5 +115,19 @@ const dateString = computed(() => {
   }
 });
 
-const { copied, copy } = useCopy(computed(() => `${window.location.origin}/${props.slug}`));
+const route = useRoute();
+const link = computed(() => ({
+  path: props.slug,
+  query: route.query.network ? { network: route.query.network } : undefined,
+}));
+
+const { copied, copy } = useCopy(
+  computed(() => {
+    let routeFull = `${window.location.origin}/${link.value.path}`;
+    if (route.query.network) {
+      routeFull += `?network=${route.query.network}`;
+    }
+    return routeFull;
+  })
+);
 </script>

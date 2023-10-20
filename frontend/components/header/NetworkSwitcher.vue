@@ -5,8 +5,8 @@
         class="flex h-9 w-full items-center gap-1.5 gap-x-1.5 whitespace-nowrap rounded-3xl p-1 px-3 py-2 text-sm shadow-md shadow-blue-800/5 ring-1 ring-gray-600/[.15] transition hover:bg-white hover:shadow-xl hover:shadow-blue-800/5 hover:ring-gray-300"
         :class="open ? 'bg-white' : 'bg-white/50'"
       >
-        <span class="hidden sm:block">{{ selectedChain.name }}</span>
-        <IconsEra class="-mx-1 h-8 w-8 sm:hidden" aria-hidden="true" />
+        <span>{{ selectedChain.name }}</span>
+        <!-- <IconsEra class="-mx-1 h-8 w-8 sm:hidden" aria-hidden="true" /> -->
         <ChevronDownIcon class="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
       </MenuButton>
     </div>
@@ -20,7 +20,7 @@
       leave-to-class="transform opacity-0 scale-95"
     >
       <MenuItems
-        class="absolute -right-16 z-10 mt-2 w-56 origin-top-right rounded-2xl bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:right-0"
+        class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-2xl bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
       >
         <div class="p-1">
           <template v-for="item in chains" :key="item.key">

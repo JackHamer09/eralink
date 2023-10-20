@@ -46,7 +46,13 @@
           Nothing found for <span class="font-medium">{{ slug }}</span>
         </p>
       </CommonAlert>
-      <CommonButton as="RouterLink" :to="{ name: 'index' }" class="mt-5" :icon="PlusIcon" icon-position="right">
+      <CommonButton
+        as="RouterLink"
+        :to="{ name: 'index', query: $route.query }"
+        class="mt-5"
+        :icon="PlusIcon"
+        icon-position="right"
+      >
         Create link
       </CommonButton>
     </template>

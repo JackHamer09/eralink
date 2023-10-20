@@ -53,22 +53,36 @@ const getPaymasterTextStoreParams = async (data: { signer: Signer; slug: string;
   };
 };
 
-const getRandomWallet = () => {
-  return Wallet.createRandom();
+const getRandomWalletSigner = () => {
+  return Wallet.createRandom().connect(getProvider());
 };
 
-export const executePaymasterTextStore = async (slug: string, text: string) => {
-  const wallet = getRandomWallet().connect(getProvider());
-  const params = await getPaymasterTextStoreParams({
-    signer: wallet,
-    slug,
-    text,
-  });
+/* const getLoggedInWalletSigner = async () => {
+  const client = await getWalletClient();
+  const web3Provider = new Web3Provider(client as any, "any");
+  return web3Provider.getSigner();
+}; */
 
-  const textStorageContract = getTextStorageContract(wallet);
-  const txHandle = await textStorageContract.storeText(text, slug, params);
-  const receipt = await txHandle.wait();
-  return receipt as TransactionReceipt;
+export const executePaymasterTextStore = async (slug: string, text: string) => {
+  const signer = getRandomWalletSigner();
+  try {
+    const params = await getPaymasterTextStoreParams({
+      signer,
+      slug,
+      text,
+    });
+
+    const textStorageContract = getTextStorageContract(signer);
+    const txHandle = await textStorageContract.storeText(text, slug, params);
+    const receipt = await txHandle.wait();
+    return receipt as TransactionReceipt;
+  } catch (error) {
+    const transactionError = getTransactionErrorMessage(error);
+    if (transactionError) {
+      throw new Error(transactionError);
+    }
+    throw error;
+  }
 };
 
 export const getEntryBySlug = async (slug: string) => {

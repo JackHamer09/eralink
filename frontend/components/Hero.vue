@@ -1,6 +1,7 @@
 <template>
   <div class="isolate">
-    <div id="hero-block" class="circles-container">
+    <div ref="circlesEl" class="viewport-height"></div>
+    <div class="circles-container">
       <div class="relative isolate">
         <div
           class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -79,6 +80,7 @@
                 placeholder="Enter URL or text to save"
                 rows="2"
                 minlength="3"
+                maxlength="1000"
                 required
                 :disabled="disabled"
                 class="search-textarea"
@@ -124,17 +126,29 @@ const emit = defineEmits<{
   (eventName: "submit"): void;
 }>();
 
+const circlesEl = ref<HTMLElement | null>(null);
+const { height: viewportHeight } = useElementSize(circlesEl);
 const heroEl = ref<HTMLElement | null>(null);
 const { height: heroHeight } = useElementSize(heroEl);
 const { y: windowScrollY } = useWindowScroll();
-const scrollMultiplier = computed(() => (heroHeight.value * 100) / 120);
-const opacity = computed(() => {
-  if (scrollMultiplier.value === 0) return 1;
-  return 1 - Math.max(0, Math.min(1, windowScrollY.value / scrollMultiplier.value));
+
+const effectiveScroll = computed(() => {
+  if (windowScrollY.value <= 0) return 0;
+  return Math.max(0, windowScrollY.value + viewportHeight.value - Math.max(heroHeight.value, viewportHeight.value));
 });
-const scale = computed(() => {
+
+const scrollMultiplier = computed(() => (heroHeight.value * 100) / 80);
+
+const opacity = computed(() => {
+  if (effectiveScroll.value === 0) return 1;
   if (scrollMultiplier.value === 0) return 1;
-  return 1 - Math.max(0, Math.min(1, windowScrollY.value / scrollMultiplier.value)) * 0.1;
+  return 1 - Math.max(0, Math.min(1, effectiveScroll.value / scrollMultiplier.value));
+});
+
+const scale = computed(() => {
+  if (effectiveScroll.value === 0) return 1;
+  if (scrollMultiplier.value === 0) return 1;
+  return 1 - Math.max(0, Math.min(1, effectiveScroll.value / scrollMultiplier.value)) * 0.1;
 });
 
 const { textarea, input } = useTextareaAutosize({ input: props.modelValue });
@@ -158,15 +172,19 @@ const fileUpload = (event: Event) => {
 <style lang="scss" scoped>
 .circles-container,
 .hero-container {
-  @apply relative w-full pb-[calc(var(--header-height)_/_2)];
-  height: calc(100vh - var(--header-height));
-  height: calc(100dvh - var(--header-height));
+  @apply relative w-full;
+  min-height: calc(100vh - var(--header-height));
+  min-height: calc(100dvh - var(--header-height));
 }
 .circles-container {
   @apply pointer-events-none absolute left-0 top-[var(--header-height)];
 }
+.viewport-height {
+  @apply pointer-events-none absolute top-0 h-screen;
+  height: 100dvh;
+}
 .hero-container {
-  @apply sticky top-0 mx-auto flex w-full max-w-2xl items-center;
+  @apply sticky top-0 mx-auto flex w-full max-w-2xl pb-20 pt-[calc(30vh_-_var(--header-height))];
 
   .search-form {
     @apply mt-8 flex items-center gap-2 sm:gap-4;

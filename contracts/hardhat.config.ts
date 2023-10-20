@@ -10,25 +10,30 @@ const config: HardhatUserConfig = {
     version: "latest",
     settings: {},
   },
+  solidity: {
+    version: "0.8.17",
+  },
   defaultNetwork: "zkSyncEraTestnet",
   networks: {
-    hardhat: {
-      zksync: false,
+    zkSyncEraTestnet: {
+      url: "https://testnet.era.zksync.dev",
+      ethNetwork: "goerli",
+      zksync: true,
+      verifyURL: "https://zksync2-testnet-explorer.zksync.dev/contract_verification",
     },
     dockerizedNode: {
       url: "http://localhost:3050",
       ethNetwork: "localhost",
       zksync: true,
     },
-    zkSyncEraTestnet: {
-      url: "https://testnet.era.zksync.dev",
-      ethNetwork: "goerli",
+    inMemoryNode: {
+      url: "http://localhost:8011",
+      ethNetwork: "localhost",
       zksync: true,
-      verifyURL: "https://zksync2-testnet-explorer.zksync.dev/contract_verification",
-    }
-  },
-  solidity: {
-    version: "0.8.17",
+    },
+    hardhat: {
+      zksync: false,
+    },
   },
 };
 
