@@ -25,11 +25,11 @@
       <CommonContentLoader v-if="!type" :length="16" class="ml-auto px-3 py-1.5 text-sm" />
       <button
         v-else
-        class="ml-auto rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 transition hover:bg-gray-50"
-        :class="{ 'ring-blue-600': copied }"
+        class="ml-auto rounded-full px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset transition"
+        :class="copied ? 'bg-green-50 ring-green-600' : 'bg-white ring-gray-300 hover:bg-gray-50'"
         @click="copy"
       >
-        {{ copied ? "Copied!" : "Copy link" }}
+        {{ copied ? "Link copied!" : "Share link" }}
       </button>
     </div>
     <div class="group relative w-full">

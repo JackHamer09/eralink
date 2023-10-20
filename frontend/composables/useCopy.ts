@@ -1,6 +1,6 @@
 import { useClipboard, useThrottleFn } from "@vueuse/core";
 
-export default (text: Ref<string>, copiedDuring = 1000) => {
+export default (text: Ref<string>, copiedDuring = 2000) => {
   const { copy: clipboardCopy, copied: isCopied } = useClipboard({
     source: text,
     copiedDuring,
