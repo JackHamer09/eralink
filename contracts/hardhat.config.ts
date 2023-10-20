@@ -13,8 +13,14 @@ const config: HardhatUserConfig = {
   solidity: {
     version: "0.8.17",
   },
-  defaultNetwork: "zkSyncEraTestnet",
+  defaultNetwork: "zkSyncEraMainnet",
   networks: {
+    zkSyncEraMainnet: {
+      url: "https://mainnet.era.zksync.io",
+      ethNetwork: "mainnet",
+      zksync: true,
+      verifyURL: "https://zksync2-mainnet-explorer.zksync.io/contract_verification",
+    },
     zkSyncEraTestnet: {
       url: "https://testnet.era.zksync.dev",
       ethNetwork: "goerli",

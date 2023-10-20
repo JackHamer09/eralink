@@ -13,13 +13,17 @@ export type Chain = {
 };
 
 const chains: Chain[] = [
-  /* {
+  {
     id: 324,
     key: "mainnet",
     name: "zkSync Era Mainnet",
     rpcUrl: "https://mainnet.era.zksync.io",
     blockExplorerUrl: "https://explorer.zksync.io",
-  }, */
+    contracts: {
+      textStorageAddress: "0x32F67D12940AaE3349a685D043Fcf1499F107D37",
+      paymasterAddress: "0x548424820A3FeF62DcEdff8594217b963cAF48C1",
+    },
+  },
   {
     id: 280,
     key: "testnet",
