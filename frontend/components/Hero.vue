@@ -64,8 +64,8 @@
     <div ref="heroEl" class="hero-container" :style="{ opacity, transform: `scale(${scale})` }">
       <div class="w-full text-center">
         <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Link to Eternity</h1>
-        <p class="mx-auto mt-6 max-w-xl text-lg text-gray-600 sm:leading-8">
-          Shorten and immortalize your links, text, and files on-chain with
+        <p class="mx-auto mt-6 max-w-[34rem] text-lg text-gray-600 sm:leading-8">
+          Shorten and immortalize your links, text, and files anonymously on-chain with
           <a href="https://zksync.io" target="_blank" class="font-medium text-blue-700 hover:underline">zkSync Era</a>,
           making them accessible forever
         </p>
@@ -97,7 +97,7 @@
           </CommonInputFile>
         </div>
       </div>
-      <a href="#links-history" class="history-button">
+      <a href="#links-history" class="history-button" @click.prevent="scrollIntoView('#links-history')">
         <span>Your links history</span>
         <ArrowDownIcon class="history-button-icon" />
       </a>
@@ -194,7 +194,7 @@ const fileUpload = (event: Event) => {
       &:focus-within {
         @apply border-blue-700;
       }
-      &:not(.disabled) {
+      &:not(.disabled):not(:focus-within) {
         @apply hover:border-gray-400;
       }
       &.disabled {
@@ -218,7 +218,7 @@ const fileUpload = (event: Event) => {
     }
   }
   .history-button {
-    @apply absolute bottom-0 left-0 right-0 mx-auto flex w-max items-center p-4 pb-7 text-sm font-medium text-gray-400 transition hover:text-gray-500;
+    @apply absolute bottom-0 left-0 right-0 mx-auto mb-5 flex w-max items-center rounded-full p-2 text-sm font-medium text-gray-400 transition hover:text-gray-500;
 
     .history-button-icon {
       @apply ml-1.5 h-4 w-4;

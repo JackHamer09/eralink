@@ -3,12 +3,20 @@
     class="flex w-full flex-col items-start justify-between rounded-3xl bg-white px-4 py-5 ring-2 ring-gray-100 sm:px-6"
   >
     <div class="flex w-full items-center gap-x-4 text-xs">
-      <time :datetime="timestamp" class="text-gray-500">
-        <span v-if="timestamp">{{ dateString }}</span>
+      <component
+        :is="transactionLink ? 'a' : 'span'"
+        :title="transactionLink ? 'View on block explorer' : undefined"
+        :href="transactionLink"
+        target="_blank"
+        class="text-gray-500"
+        :class="{ 'underline-offset-2 hover:underline': transactionLink }"
+      >
+        <IconsEra v-if="transactionLink" class="mr-2 inline-block h-6 w-6 text-black" />
+        <span v-if="timestamp" class="align-middle">{{ dateString }}</span>
         <span v-else>
           <CommonContentLoader :length="30" />
         </span>
-      </time>
+      </component>
       <CommonContentLoader v-if="!type" :length="13" class="py-0.5" />
       <CommonBadge v-else-if="type === 'text'" variant="gray">Text</CommonBadge>
       <CommonBadge v-else-if="type === 'url'" variant="yellow">Link</CommonBadge>
@@ -79,10 +87,21 @@ const props = defineProps({
   timestamp: {
     type: String,
   },
+  transactionHash: {
+    type: String,
+  },
   clamp: {
     type: Boolean,
     default: true,
   },
+});
+
+const { selectedChain } = storeToRefs(useNetworkStore());
+const transactionLink = computed(() => {
+  if (!props.transactionHash || !selectedChain.value.blockExplorerUrl) {
+    return;
+  }
+  return `${selectedChain.value.blockExplorerUrl}/tx/${props.transactionHash}`;
 });
 
 const dateString = computed(() => {
